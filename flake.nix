@@ -14,7 +14,7 @@
 
     };
 
-    outputs = { self, nixpkgs, ... }@inputs: {
+    outputs = { self, nixpkgs, ... }@inputs: 
         let 
             system = "x86_64-linux";
             pkgs = nixpkgs.legacyPackages.${system};
@@ -32,17 +32,16 @@
                     specialArgs = {inherit inputs;};
                     modules = [
                         ./hosts/plasma/configuration.nix
-                        inputs.home-manager.nixosModules.plasma
+                        inputs.home-manager.nixosModules.default
                     ];
                 };
                 hyprland = nixpkgs.lib.nixosSystem {
                     specialArgs = {inherit inputs;};
                     modules = [
                         ./hosts/hyprland/configuration.nix
-                        inputs.home-manager.nixosModules.hyprland
+                        inputs.home-manager.nixosModules.default
                     ];
                 };
             };
         };
-    };
 }

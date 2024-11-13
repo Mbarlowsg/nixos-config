@@ -8,6 +8,10 @@
             url = "github:nix-community/home-manager";
             inputs.nixpkgs.follows = "nixpkgs";
         };
+
+        hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+
+
     };
 
     outputs = { self, nixpkgs, ... }@inputs: {
@@ -29,6 +33,13 @@
                     modules = [
                         ./hosts/plasma/configuration.nix
                         inputs.home-manager.nixosModules.plasma
+                    ];
+                };
+                hyprland = nixpkgs.lib.nixosSystem {
+                    specialArgs = {inherit inputs;};
+                    modules = [
+                        ./hosts/hyprland/configuration.nix
+                        inputs.home-manager.nixosModules.hyprland
                     ];
                 };
             };

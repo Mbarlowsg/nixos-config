@@ -1,6 +1,9 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
+    imports = [
+        ../../modules/home-manager/nvim/nvim.nix
+    ];
 # Home Manager needs a bit of information about you and the paths it should
 # manage.
     home.username = "michael";
@@ -74,12 +77,4 @@
 # Let Home Manager install and manage itself.
     programs.home-manager.enable = true;
 
-# Neovim Setup
-    programs.neovim = {
-        enable = true;
-
-        viAlias = true;
-        vimAlias = true;
-        vimdiffAlias = true;
-    };
-}
+} 

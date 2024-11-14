@@ -26,17 +26,10 @@ in
 
     extraPackages = with pkgs; [
         xclip
-        wl-clipboard
+            wl-clipboard
     ];
 
-    plugins = with pkgs.vimPlugins; [
-
-    ];
-
-    extraLuaConfig = ''
-        ${builtins.readFile ./plugins/options.lua}
-        ${builtins.readFile ./plugins/options.lua}
-    '';
+   home.file."~/.config/nvim".source = "./"
 
 # extraLuaConfig = ''
 #   ${builtins.readFile ./nvim/options.lua}

@@ -1,4 +1,10 @@
-local opts = {
+-- Theme/Colorscheme
+return {
+  -- https://github.com/rebelot/kanagawa.nvim
+  "folke/tokyonight.nvim", -- You can replace this with your favorite colorscheme
+  lazy = false, -- We want the colorscheme to load immediately when starting Neovim
+  priority = 1000, -- Load the colorscheme before other non-lazy-loaded plugins
+  opts = {
     -- Replace this with your scheme-specific settings or remove to use the defaults
     style = "night", -- The theme comes in three styles, `storm`, `moon`, a darker variant `night` and `day`
     light_style = "day", -- The theme is used when the background is set to light
@@ -31,11 +37,11 @@ local opts = {
     ---@param highlights Highlights
     ---@param colors ColorScheme
     on_highlights = function(highlights, colors) end,
-}
-
+},
+  config = function(_, opts)
 require('tokyonight').setup(opts)
 -- Replace this with your favorite colorscheme
-vim.cmd("colorscheme tokyonight-night") -- Replace this with your favorite colorscheme
+vim.cmd("colorscheme tokyonight") -- Replace this with your favorite colorscheme
 -- Colorscheme overrides
 vim.cmd([[
 autocmd VimEnter * hi DiffAdd guifg=#00FF00 guibg=#005500
@@ -43,5 +49,6 @@ autocmd VimEnter * hi DiffDelete guifg=#FF0000 guibg=#550000
 autocmd VimEnter * hi DiffChange guifg=#CCCCCC guibg=#555555
 autocmd VimEnter * hi DiffText guifg=#00FF00 guibg=#005500
 ]])
-
+  end
+}
 

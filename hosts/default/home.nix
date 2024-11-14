@@ -73,4 +73,13 @@
 
 # Let Home Manager install and manage itself.
     programs.home-manager.enable = true;
+
+# Neovim Setup
+    programs.neovim = {
+        enable = true;
+
+        viAlias = true;
+        vimAlias = true;
+        vimdiffAlias = true;
+    };
 }

@@ -1,28 +1,40 @@
 { lib, config, pkgs, ... }:
 
 let
-  cfg = config.main-user;
+cfg = config.main-user;
 in
 {
-  options.main-user = {
-    enable
-      = lib.mkEnableOption "enable user module";
+    options.main-user = {
+        enable
+            = lib.mkEnableOption "enable user module";
 
-    userName = lib.mkOption {
-      default = "mainuser";
-      description = ''
-        username
-      '';
+        userName = lib.mkOption {
+            default = "mainuser";
+            description = ''
+                username
+                '';
+        };
+        
+        description = lib.mkOption {
+            default = "main user";
+            description = ''
+                user description
+            ''
+        };
     };
-  };
 
-  config = lib.mkIf cfg.enable {
-    users.users.${cfg.userName} = {
-      isNormalUser = true;
-      initialPassword = "12345";
-      description = "main user";
-      shell = pkgs.zsh;
+    config = lib.mkIf cfg.enable {
+        users.users.${cfg.userName} = {
+            isNormalUser = true;
+            initialPassword = "12345";
+            description = "${cfg.description}";
+            shell = pkgs.zsh;
+            packages = with pkgs; [
+            # packages are setup for use with Gnome, change packages based on DE requirements
+                kdePackages.kate
+#  thunderbird
+            ];
+        };
     };
-  };
 }
 

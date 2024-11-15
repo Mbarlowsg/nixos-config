@@ -8,6 +8,7 @@
     imports =
         [ # Include the results of the hardware scan.
         ./hardware-configuration.nix
+        ../../modules/nixos/main-user.nix
             inputs.home-manager.nixosModules.default
         ];
 
@@ -87,17 +88,14 @@
 # Enable touchpad support (enabled default in most desktopManager).
 # services.xserver.libinput.enable = true;
 
-# Define a user account. Don't forget to set a password with ‘passwd’.
-    users.users.michael = {
-        isNormalUser = true;
-        description = "Michael";
-        extraGroups = [ "networkmanager" "wheel" ];
-        packages = with pkgs; [
-            kdePackages.kate
-#  thunderbird
-        ];
-    };
+# User settings
 
+    main-user = {
+        enable = true;
+        userName = "michael";
+        description = "Michael";
+    };
+    
     home-manager = {
         extraSpecialArgs = { inherit inputs; };
         users = {

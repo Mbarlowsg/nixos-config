@@ -1,7 +1,12 @@
 { config, pkgs, inputs, lib, home-manager, ... }:
-
+let
+    inherit (lib) mkOption types;
+    startupScript = pkgs.pkgs.writeShellScriptBin "start" ''
+        ${pkgs.waybar}/bin/waybar 
+    '';
+in
 {
-    options.myHomeManager.monitors = mkOption {
+    options.myHomeManager.monitors = lib.mkOption {
         type = types.attrsOf (types.submodule {
             options = {
                 primary = mkOption {
@@ -58,13 +63,13 @@
     };
 
     config = {
-        myHomeManager.waybar.enable = true;
+        # myHomeManager.waybar.enable = true;
         wayland.windowManager.hyprland = {
             enable = true;
     # set the flake package
             package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
             settings = {
-    # put hyprland settings here 
+                exec-once = ''${startupScript}/bin/start''; # executed on startup
                 monitor =
                     lib.mapAttrsToList
                     (
@@ -108,6 +113,7 @@
         home.packages = with pkgs; [
             wl-clipboard
             rofi-wayland
+            waybar
         ];
     };
 

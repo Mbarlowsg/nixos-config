@@ -16,6 +16,10 @@
         extraPackages = with pkgs; [
             xclip
             wl-clipboard
+            unzip
+            nodejs
+            gcc
+            git
         ];
 
 

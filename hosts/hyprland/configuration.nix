@@ -48,8 +48,15 @@
         LC_TELEPHONE = "en_US.UTF-8";
         LC_TIME = "en_US.UTF-8";
     };
+
+    services.xserver = {
+        enable = true;
+        layout = "us";
+    };
+
 # Hyprland
     programs.hyprland.enable = true;
+    programs.hyprland.xwayland.enable = true;
     # Optional, hint electron apps to use wayland:
     # environment.sessionVariables.NIXOS_OZONE_WL = "1";
 

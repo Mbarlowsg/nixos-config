@@ -1,6 +1,7 @@
 { config, pkgs, inputs, home-manager, ... }:
 
 {
+
     programs.neovim = 
     let
         toLua = str: "lua << EOF\n${str}\nEOF\n";
@@ -12,7 +13,6 @@
         viAlias = true;
         vimAlias = true;
         vimdiffAlias = true;
-        defaultEditor = true;
 
         extraPackages = with pkgs; [
             xclip

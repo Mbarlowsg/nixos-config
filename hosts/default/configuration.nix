@@ -113,6 +113,13 @@
     programs.zsh.enable = true;
     environment.pathsToLink = [ "/share/zsh" ];
 
+# Set nvim as default editor
+    environment.variables = { 
+        EDITOR = "nvim"; 
+        VISUAL = "nvim";
+    };
+
+
 # Allow unfree packages
     nixpkgs.config.allowUnfree = true;
 

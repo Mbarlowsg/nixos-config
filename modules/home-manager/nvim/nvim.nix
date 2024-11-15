@@ -12,6 +12,7 @@
         viAlias = true;
         vimAlias = true;
         vimdiffAlias = true;
+        defaultEditor = true;
 
         extraPackages = with pkgs; [
             xclip

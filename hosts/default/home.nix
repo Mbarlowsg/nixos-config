@@ -3,6 +3,7 @@
 {
     imports = [
         ../../modules/home-manager/nvim/nvim.nix
+        ../../modules/home-manager/zsh/zsh.nix
     ];
 # Home Manager needs a bit of information about you and the paths it should
 # manage.

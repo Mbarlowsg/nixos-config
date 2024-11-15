@@ -19,7 +19,7 @@ in
             default = "main user";
             description = ''
                 user description
-            ''
+            '';
         };
     };
 

@@ -9,6 +9,7 @@
         [ # Include the results of the hardware scan.
         ./hardware-configuration.nix
         ../../modules/nixos/main-user.nix
+        ../../modules/nixos/stylix/stylix.nix
             inputs.home-manager.nixosModules.default
         ];
 

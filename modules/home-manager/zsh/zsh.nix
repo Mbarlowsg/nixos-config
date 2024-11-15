@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, home-manager ... }:
+{ config, pkgs, inputs, home-manager, ... }:
 {
     # Configure zsh
     programs.zsh = {
@@ -6,14 +6,14 @@
         dotDir = ".config/zsh";
 
         # built in plugins
-        autosuggestions.enable = true;
+        autosuggestion.enable = true;
         syntaxHighlighting.enable = true;
 
         # oh-my-zsh 
-        os-my-zsh = {
+        oh-my-zsh = {
             enable = true;
             theme = "robbyrussell";
-            oh-my-zsh.plugins = [
+            plugins = [
                 "git"
                 "npm"
                 "history"
@@ -44,6 +44,6 @@
         enable = true;
         enableZshIntegration = true;
         settings 
-            = builtins.fromJSON (builtins.unsafeDiscardStringContext (builtins.readFile "./oh-my-posh-config.json"));
+            = builtins.fromJSON (builtins.unsafeDiscardStringContext (builtins.readFile ./oh-my-posh-config.json));
     };
 }

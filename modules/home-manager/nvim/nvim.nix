@@ -2,9 +2,9 @@
 
 {
     programs.neovim = 
-        let
+    let
         toLua = str: "lua << EOF\n${str}\nEOF\n";
-    toLuaFile = file: "lua << EOF\n${builtins.readFile file}\nEOF\n";
+        toLuaFile = file: "lua << EOF\n${builtins.readFile file}\nEOF\n";
     in
     {
         enable = true;
@@ -15,29 +15,29 @@
 
         extraPackages = with pkgs; [
             xclip
-                wl-clipboard
+            wl-clipboard
         ];
 
 
 
     };
+    # set config files in ~/.config/nvim
     home.file = {
         ".config/nvim" = {
             source = ../nvim;
             recursive = true;
         };
     };
-    {
-        nixpkgs = {
-            overlays = [
-                (final: prev: {
+
+    # add custom packages
+    nixpkgs = {
+        overlays = [
+            (final: prev: {
                  vimPlugins = prev.vimPlugins // {
-# add custom plugins here 
-
+                    # add custom plugins here 
                  };
-                 })
-            ];
-        };
-
-    }
+            })
+        ];
+    };
+}
 

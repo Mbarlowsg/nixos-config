@@ -20,7 +20,7 @@
 # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
 # Flakes setup
-        nix.settings.experimental-features = [ "nix-command" "flakes" ];
+    nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
 # Configure network proxy if necessary
 # networking.proxy.default = "http://user:password@proxy:port/";
@@ -90,7 +90,7 @@
 # Define a user account. Don't forget to set a password with ‘passwd’.
     users.users.michael = {
         isNormalUser = true;
-        description = "main user";
+        description = "Michael";
         extraGroups = [ "networkmanager" "wheel" ];
         packages = with pkgs; [
             kdePackages.kate
@@ -105,9 +105,15 @@
         };
     };  
 
-# Install firefox and zsh.
+# Install firefox
     programs.firefox.enable = true;
+
+
+# Install Zsh
+    users.defaultUserShell = pkgs.zsh;
+    environment.shells = with pkgs; [ zsh ];
     programs.zsh.enable = true;
+    environment.pathsToLink = [ "/share/zsh" ];
 
 # Allow unfree packages
     nixpkgs.config.allowUnfree = true;

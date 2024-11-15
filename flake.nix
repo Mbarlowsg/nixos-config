@@ -9,9 +9,9 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
-        hyprland.url = "github:hyprwm/Hyprland?submodules=1";
+        stylix.url = "github:danth/stylix";
 
-
+        # hyprland.url = "github:hyprwm/Hyprland?submodules=1";
     };
 
     outputs = { self, nixpkgs, ... }@inputs: 
@@ -26,6 +26,7 @@
                 modules = [
                     ./hosts/default/configuration.nix
                         inputs.home-manager.nixosModules.default
+                        inputs.stylix.nixosModules.stylix
                 ];
             };
             plasma = nixpkgs.lib.nixosSystem {

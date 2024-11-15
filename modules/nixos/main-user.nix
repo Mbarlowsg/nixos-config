@@ -26,7 +26,7 @@ in
     config = lib.mkIf cfg.enable {
         users.users.${cfg.userName} = {
             isNormalUser = true;
-            initialPassword = "12345";
+            initialPassword = "asd";
             description = "${cfg.description}";
             shell = pkgs.zsh;
             home = "/home/${cfg.userName}";

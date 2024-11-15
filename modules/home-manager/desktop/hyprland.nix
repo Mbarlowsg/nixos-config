@@ -1,11 +1,15 @@
 { config, pkgs, inputs, lib, home-manager, ... }:
 let
     inherit (lib) mkOption types;
-    startupScript = pkgs.pkgs.writeShellScriptBin "start" ''
-        ${pkgs.waybar}/bin/waybar 
-    '';
+    # startupScript = pkgs.pkgs.writeShellScriptBin "start" ''
+    #     ${pkgs.waybar}/bin/waybar 
+    # '';
 in
 {
+    programs.waybar = {
+        enable = true;
+    };
+
     options.myHomeManager.monitors = lib.mkOption {
         type = types.attrsOf (types.submodule {
             options = {

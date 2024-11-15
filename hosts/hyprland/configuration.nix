@@ -8,7 +8,6 @@
     imports =
         [ # Include the results of the hardware scan.
         ./hardware-configuration.nix
-        ../../modules/nixos/main-user.nix
         ../../modules/nixos/stylix/stylix.nix
             inputs.home-manager.nixosModules.default
         ];
@@ -81,24 +80,21 @@
 # Enable touchpad support (enabled default in most desktopManager).
 # services.xserver.libinput.enable = true;
 
-# User settings
-
-    main-user = {
-        enable = true;
-        userName = "michael";
-        description = "Michael";
-    };
-    
+# User and home-manager settings
     home-manager = {
         extraSpecialArgs = { inherit inputs; };
         users = {
             "michael" = import ./home.nix;
+            description = "Michael";
+            initialPassword = "asd";
+            userSettings = {
+                extraGroups = ["wheel"];
+            };
         };
     };  
 
 # Install firefox
     programs.firefox.enable = true;
-
 
 # Install Zsh
     users.defaultUserShell = pkgs.zsh;
@@ -111,7 +107,6 @@
         EDITOR = "nvim"; 
         VISUAL = "nvim";
     };
-
 
 # Allow unfree packages
     nixpkgs.config.allowUnfree = true;
@@ -155,5 +150,4 @@
 # Before changing this value read the documentation for this option
 # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
     system.stateVersion = "24.05"; # Did you read the comment?
-
 }

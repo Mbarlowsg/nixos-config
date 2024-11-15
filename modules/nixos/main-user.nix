@@ -29,6 +29,8 @@ in
             initialPassword = "12345";
             description = "${cfg.description}";
             shell = pkgs.zsh;
+            home = "/home/${cfg.userName}";
+            extraGroups = [ "wheel" ];
             packages = with pkgs; [
             # packages are setup for use with Gnome, change packages based on DE requirements
                 kdePackages.kate

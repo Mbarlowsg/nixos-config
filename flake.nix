@@ -11,7 +11,7 @@
 
         stylix.url = "github:danth/stylix";
 
-        hyprland.url = "github:hyprwm/Hyprland";
+        # hyprland.url = "github:hyprwm/Hyprland?submodules=1";
     };
 
     outputs = { self, nixpkgs, ... }@inputs: 
@@ -41,7 +41,6 @@
                 modules = [
                     ./hosts/hyprland/configuration.nix
                         inputs.home-manager.nixosModules.default
-                        inputs.stylix.nixosModules.stylix
                 ];
             };
         };

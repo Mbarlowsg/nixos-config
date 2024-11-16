@@ -8,8 +8,7 @@
     imports =
         [ # Include the results of the hardware scan.
         ./hardware-configuration.nix
-        ../../modules/nixos/stylix/stylix.nix
-            inputs.home-manager.nixosModules.default
+        inputs.home-manager.nixosModules.default
         ];
 
 # Bootloader.
@@ -21,7 +20,7 @@
 # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
 # Flakes setup
-    nix.settings.experimental-features = [ "nix-command" "flakes" ];
+        nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
 # Configure network proxy if necessary
 # networking.proxy.default = "http://user:password@proxy:port/";
@@ -48,15 +47,15 @@
         LC_TIME = "en_US.UTF-8";
     };
 
-    services.xserver = {
-        enable = true;
-        layout = "us";
-    };
-
-# Hyprland
+# Enable the Hyprland Desktop environment
     programs.hyprland.enable = true;
-    # Optional, hint electron apps to use wayland:
-    # environment.sessionVariables.NIXOS_OZONE_WL = "1";
+    programs.hyprland.package = inputs.hyprland.packages."${pkgs.system}".hyprland;
+
+# Configure keymap in X11
+    services.xserver.xkb = {
+        layout = "us";
+        variant = "";
+    };
 
 # Enable CUPS to print documents.
     services.printing.enable = true;
@@ -80,33 +79,27 @@
 # Enable touchpad support (enabled default in most desktopManager).
 # services.xserver.libinput.enable = true;
 
-# User and home-manager settings
+# Define a user account. Don't forget to set a password with ‘passwd’.
+    users.users.michael = {
+        isNormalUser = true;
+        description = "main user";
+        extraGroups = [ "networkmanager" "wheel" ];
+        packages = with pkgs; [
+            kdePackages.kate
+#  thunderbird
+        ];
+    };
+
     home-manager = {
         extraSpecialArgs = { inherit inputs; };
         users = {
             "michael" = import ./home.nix;
-            description = "Michael";
-            initialPassword = "asd";
-            userSettings = {
-                extraGroups = ["wheel"];
-            };
         };
     };  
 
-# Install firefox
+# Install firefox and zsh.
     programs.firefox.enable = true;
-
-# Install Zsh
-    users.defaultUserShell = pkgs.zsh;
-    environment.shells = with pkgs; [ zsh ];
     programs.zsh.enable = true;
-    environment.pathsToLink = [ "/share/zsh" ];
-
-# Set nvim as default editor
-    environment.variables = { 
-        EDITOR = "nvim"; 
-        VISUAL = "nvim";
-    };
 
 # Allow unfree packages
     nixpkgs.config.allowUnfree = true;
@@ -150,4 +143,5 @@
 # Before changing this value read the documentation for this option
 # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
     system.stateVersion = "24.05"; # Did you read the comment?
+
 }

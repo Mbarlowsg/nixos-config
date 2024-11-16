@@ -1,6 +1,11 @@
 { config, pkgs, inputs, ... }:
 
 {
+    imports = [
+            ../../modules/home-manager/nvim/nvim.nix
+            ../../modules/home-manager/zsh/zsh.nix
+            ../../modules/home-manager/desktop/hyprland.nix
+        ];
 # Home Manager needs a bit of information about you and the paths it should
 # manage.
     home.username = "michael";

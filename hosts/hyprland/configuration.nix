@@ -50,6 +50,7 @@
 # Enable the Hyprland Desktop environment
     programs.hyprland.enable = true;
     programs.hyprland.package = inputs.hyprland.packages."${pkgs.system}".hyprland;
+    hardware.opengl.enable = true;
 
 # Configure keymap in X11
     services.xserver.xkb = {

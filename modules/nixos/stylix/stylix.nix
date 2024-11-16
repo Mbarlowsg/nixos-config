@@ -2,7 +2,7 @@
 
 {
     stylix.enable = true;
-    stylix.image = ./wallpaper.png;
+    stylix.url = ./wallpaper.png;
 
     stylix.fonts = {
         monospace = {

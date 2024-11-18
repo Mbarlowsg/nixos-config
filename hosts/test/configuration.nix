@@ -8,16 +8,22 @@
     imports =
         [ # Include the results of the hardware scan.
         ./hardware-configuration.nix
-            inputs.home-manager.nixosModules.default
+        # can also put slylix here
         ];
 
 # Bootloader.
-    boot.loader.grub.enable = true;
+    # Use systemd-boot if uefi, default to grub otherwise
+    boot.loader.systemd-boot.enable = if (systemSettings.bootMode == "uefi") then true else false;
+    boot.loader.efi.canTouchEfiVariables = if (systemSettings.bootMode == "uefi") then true else false;
+    boot.loader.efi.efiSysMountPoint = systemSettings.bootMountPath; # does nothing if running bios rather than uefi
+    boot.loader.grub.enable = if (systemSettings.bootMode == "uefi") then false else true;
     boot.loader.grub.device = "/dev/sda";
     boot.loader.grub.useOSProber = true;
+    boot.loader.grub.device = systemSettings.grubDevice; # does nothing if running uefi rather than bios
 
-    networking.hostName = # Define your hostname.
-# networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+# Networking
+    networking.hostName = systemSettings.profile; # Define your hostname.
+    networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
 # Flakes setup
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -26,39 +32,20 @@
 # networking.proxy.default = "http://user:password@proxy:port/";
 # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
-# Enable networking
-    networking.networkmanager.enable = true;
 
 # Set your time zone.
-    time.timeZone = "America/New_York";
-
-# Select internationalisation properties.
-    i18n.defaultLocale = "en_US.UTF-8";
-
+    time.timeZone = systemSettings.timezone; 
+    i18n.defaultLocale = systemSettings.locale;
     i18n.extraLocaleSettings = {
-        LC_ADDRESS = "en_US.UTF-8";
-        LC_IDENTIFICATION = "en_US.UTF-8";
-        LC_MEASUREMENT = "en_US.UTF-8";
-        LC_MONETARY = "en_US.UTF-8";
-        LC_NAME = "en_US.UTF-8";
-        LC_NUMERIC = "en_US.UTF-8";
-        LC_PAPER = "en_US.UTF-8";
-        LC_TELEPHONE = "en_US.UTF-8";
-        LC_TIME = "en_US.UTF-8";
-    };
-
-# Enable the GNOME Desktop Environment.
-    services.xserver = {
-        enable = true;
-        displayManager.gdm.enable = true;
-        desktopManager.gnome.enable = true;
-    };
-
-
-# Configure keymap in X11
-    services.xserver.xkb = {
-        layout = "us";
-        variant = "";
+        LC_ADDRESS = systemSetings.locale;
+        LC_IDENTIFICATION = systemSettings.locale;
+        LC_MEASUREMENT = systemSettings.locale;
+        LC_MONETARY = systemSettings.locale;
+        LC_NAME = systemSettings.locale;
+        LC_NUMERIC = systemSettings.locale;
+        LC_PAPER = systemSettings.locale;
+        LC_TELEPHONE = systemSettings.locale;
+        LC_TIME = systemSettings.locale;
     };
 
 # Enable CUPS to print documents.
@@ -92,14 +79,9 @@
     users.defaultUserShell = pkgs.zsh;
     environment.shells = with pkgs; [ zsh ];
     programs.zsh.enable = true;
-    environment.pathsToLink = [ "/share/zsh" ];
 
-# Set nvim as default editor
-    environment.variables = { 
-        EDITOR = "nvim"; 
-        VISUAL = "nvim";
-    };
-
+# Wheel group gets trusted access to nix daemon
+    nix.settings.trusted-users = [ "@wheel" ];
 
 # Allow unfree packages
     nixpkgs.config.allowUnfree = true;
@@ -116,6 +98,7 @@
         git
         gh
         home-manager
+        gnome
     ];
 
     system.stateVersion = "24.05"; # Do not change without thorough checks

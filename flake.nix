@@ -76,7 +76,6 @@
                 };
                 modules = [
                     (./. + "/hosts" + ("/" + systemSettings.profile) + "/configuration.nix")
-                    inputs.lix-module.nixosModules.default
                 ];
             };
 

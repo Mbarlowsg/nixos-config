@@ -19,7 +19,7 @@
     boot.loader.grub.enable = if (systemSettings.bootMode == "uefi") then false else true;
     boot.loader.grub.device = "/dev/sda";
     boot.loader.grub.useOSProber = true;
-    boot.loader.grub.device = systemSettings.grubDevice; # does nothing if running uefi rather than bios
+#    boot.loader.grub.device = systemSettings.grubDevice; # does nothing if running uefi rather than bios
 
 # Networking
     networking.hostName = systemSettings.profile; # Define your hostname.
@@ -37,7 +37,7 @@
     time.timeZone = systemSettings.timezone; 
     i18n.defaultLocale = systemSettings.locale;
     i18n.extraLocaleSettings = {
-        LC_ADDRESS = systemSetings.locale;
+        LC_ADDRESS = systemSettings.locale;
         LC_IDENTIFICATION = systemSettings.locale;
         LC_MEASUREMENT = systemSettings.locale;
         LC_MONETARY = systemSettings.locale;
@@ -64,7 +64,7 @@
 # User settings
     users.users.${userSettings.username} = {
         isNormalUser = true;
-        password = "asd"
+        password = "asd";
         description = userSettings.name;
         extraGroups = [ "networkmanager" "wheel" "input" "dialout" "video" "render" ];
         packages = [];
@@ -99,7 +99,7 @@
         git
         gh
         home-manager
-        gnome
+        screenfetch
     ];
 
     system.stateVersion = "24.05"; # Do not change without thorough checks

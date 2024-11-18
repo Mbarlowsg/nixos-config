@@ -105,7 +105,7 @@
 # Define a user account. Don't forget to set a password with ‘passwd’.
     users.users.michael = {
         isNormalUser = true;
-        passwd = "asd";
+        password = "asd";
         description = "main user";
         extraGroups = [ "networkmanager" "wheel" ];
         packages = with pkgs; [

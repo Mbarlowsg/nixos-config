@@ -29,20 +29,15 @@
                         inputs.stylix.nixosModules.stylix
                 ];
             };
-            plasma = nixpkgs.lib.nixosSystem {
+        test = {
+            default = nixpkgs.lib.nixosSystem {
                 specialArgs = {inherit inputs;};
                 modules = [
-                    ./hosts/plasma/configuration.nix
+                    ./hosts/test/configuration.nix
                         inputs.home-manager.nixosModules.default
                 ];
             };
-            hyprland = nixpkgs.lib.nixosSystem {
-                specialArgs = {inherit inputs;};
-                modules = [
-                    ./hosts/hyprland/configuration.nix
-                        inputs.home-manager.nixosModules.default
-                ];
-            };
+
         };
     };
 }

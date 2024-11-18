@@ -29,8 +29,7 @@
                         inputs.stylix.nixosModules.stylix
                 ];
             };
-        test = {
-            default = nixpkgs.lib.nixosSystem {
+            test = nixpkgs.lib.nixosSystem {
                 specialArgs = {inherit inputs;};
                 modules = [
                     ./hosts/test/configuration.nix

@@ -50,7 +50,13 @@
 # Enable the Hyprland Desktop environment
     programs.hyprland.enable = true;
     programs.hyprland.package = inputs.hyprland.packages."${pkgs.system}".hyprland;
-    hardware.opengl.enable = true;
+    hardware.graphics.enable = true;
+
+# Enable the Gnome display manager
+    services.xserver.displayManager.gdm = {
+        enable = true;
+        wayland = true;
+    };
 
 # Configure keymap in X11
     services.xserver.xkb = {

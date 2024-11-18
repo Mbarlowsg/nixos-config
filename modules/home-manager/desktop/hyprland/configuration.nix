@@ -15,6 +15,7 @@
     boot.loader.grub.enable = true;
     boot.loader.grub.device = "/dev/sda";
     boot.loader.grub.useOSProber = true;
+    boot.loader.efi.canTouchEfiVariables = true;
 
     networking.hostName = "nixos"; # Define your hostname.
 # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -51,11 +52,16 @@
     programs.hyprland.enable = true;
     programs.hyprland.package = inputs.hyprland.packages."${pkgs.system}".hyprland;
     hardware.graphics.enable = true;
+    programs.sway.enable = true; # to enable wayland compositor
 
 # Enable the Gnome display manager
-    services.xserver.displayManager.gdm = {
+    services.xserver = {
         enable = true;
-        wayland = true;
+
+        displayManager.gdm = {
+            enable = true;
+            wayland = true;
+        };
     };
 
 # Configure keymap in X11

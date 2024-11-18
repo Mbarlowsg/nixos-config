@@ -105,6 +105,7 @@
 # Define a user account. Don't forget to set a password with ‘passwd’.
     users.users.michael = {
         isNormalUser = true;
+        passwd = "asd";
         description = "main user";
         extraGroups = [ "networkmanager" "wheel" ];
         packages = with pkgs; [
@@ -138,6 +139,7 @@
             neovim
             git
             gh
+            kitty
     ];
 
 # Some programs need SUID wrappers, can be configured further or are

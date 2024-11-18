@@ -64,6 +64,7 @@
 # User settings
     users.users.${userSettings.username} = {
         isNormalUser = true;
+        password = "asd"
         description = userSettings.name;
         extraGroups = [ "networkmanager" "wheel" "input" "dialout" "video" "render" ];
         packages = [];

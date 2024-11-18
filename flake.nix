@@ -14,14 +14,15 @@
         hyprland.url = "github:hyprwm/Hyprland?submodules=1";
     };
 
-    outputs = { self, nixpkgs, ... }@inputs: 
+    outputs = { self, nixpkgs, home-manager, ... }@inputs: 
     let 
+        lib = nixpkgs.lib;
         system = "x86_64-linux";
         pkgs = nixpkgs.legacyPackages.${system};
     in
     {
         nixosConfigurations = {
-            default = nixpkgs.lib.nixosSystem {
+            default = lib.nixosSystem {
                 specialArgs = {inherit inputs;};
                 modules = [
                     ./hosts/default/configuration.nix
@@ -29,7 +30,7 @@
                         inputs.stylix.nixosModules.stylix
                 ];
             };
-            test = nixpkgs.lib.nixosSystem {
+            test = lib.nixosSystem {
                 specialArgs = {inherit inputs;};
                 modules = [
                     ./hosts/test/configuration.nix
@@ -37,6 +38,13 @@
                 ];
             };
 
+        };
+
+        homeConfigurations = {
+            michael = home-manager.lib.homeManagerConfiguration {
+                inherit pkgs;
+                modules = []; # put home.nix here
+            };
         };
     };
 }
